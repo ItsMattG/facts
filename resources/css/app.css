@@ -1,0 +1,64 @@
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
+    margin: 0;
+    padding: 0;
+	font-size: 50px;
+}
+
+/* Set box-sizing to border-box for easier layout */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Apply a basic font and line height */
+/* app.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #4ABDAC;
+}
+
+#app {
+    text-align: center;
+}
+
+.container {
+    text-align: center;
+}
+
+.title {
+	font-size: 28px;
+	margin-bottom: 20px;
+	color: #dfdce3;
+}
+
+.buttons {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.buttons button {
+	margin: 0 10px;
+	padding: 10px 20px;
+	font-size: 16px;
+	background-color: #f7b733;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.buttons button:hover {
+	background-color: #fc4a1a;
+}
+
+.response {
+	font-size: 18px;
+	margin-bottom: 20px;
+}
