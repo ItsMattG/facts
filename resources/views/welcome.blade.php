@@ -7,7 +7,8 @@
 		@vite('resources/js/app.js')
 		<link rel="stylesheet" href="/resources/css/app.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetify@3.0.0-alpha.10/dist/vuetify.min.css">
-    </head>
+		<link href="@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
+	</head>
     <body>
 		<div id='app'>
 			<facts />
