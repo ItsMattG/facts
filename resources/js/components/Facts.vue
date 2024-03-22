@@ -130,7 +130,6 @@ export default {
 		},
 		async fetchFact() {
 			this.showResult = false;
-			this.inputValue = '';
 			this.guess = '';
 			this.response = {};
 			if (!this.selectedFact) {
@@ -154,6 +153,7 @@ export default {
 					this.apiSearch = 'random/trivia';
 					break;
 				case 'trivia':
+					console.log('asdad', this.inputValue)
 					this.apiSearch = `${this.inputValue + '/trivia'}`;
 					break;
 				case 'year':
