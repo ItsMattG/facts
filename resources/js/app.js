@@ -1,16 +1,19 @@
-import './bootstrap';
-
 import { createApp } from 'vue/dist/vue.esm-bundler.js';
-import Facts from './components/Facts.vue';
-import axios from 'axios';
-import { ref } from 'vue';
 
-const app = createApp({
-	components: {
-		Facts,
-	}
-});
+// Vuetify
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import Facts from './components/Facts.vue'
 
-app.config.globalProperties.$axios = axios;
+const vuetify = createVuetify({
+	components,
+	directives,
+})
 
-app.mount('#app');
+const app = createApp()
+
+app.component('Facts', Facts)
+
+app.use(vuetify).mount('#app')

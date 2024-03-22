@@ -1,32 +1,42 @@
 <template>
-	<div class="wrapper">
-		<div class="container">
-			<h1 class="title">Choose a Fun Fact!</h1>
-			<div class="buttons">
-				<button @click="selectFact('date')" :class="{ selected: selectedFact === 'date' }">Date</button>
-				<button @click="selectFact('math')" :class="{ selected: selectedFact === 'math' }">Math</button>
-				<button @click="selectFact('random')" :class="{ selected: selectedFact === 'random' }">Random</button>
-				<button @click="selectFact('trivia')" :class="{ selected: selectedFact === 'trivia' }">Trivia</button>
-				<button @click="selectFact('year')" :class="{ selected: selectedFact === 'year' }">Year</button>
-			</div>
-		</div>
-		<div class="bottom-content">
-			<div class="input-field" v-if="showInputField">
-				<input v-model="inputValue" v-if="selectedFact === 'date'" type="text" placeholder="DD/MM" pattern="\d{2}/\d{2}">
-				<input v-model="inputValue" v-else type="number" placeholder="Enter a number">
-			</div>
-			<div class="fetch-button-container">
-				<button @click="fetchFact" v-if="selectedFact">Get Fact!</button>
-				<div class="response" v-if="response">{{ response.text }}</div>
-				<div v-show="showError" class="error-message">
-					Invalid date format. Please enter a valid date format (DD/MM).
-				</div>
-			</div>
-		</div>
-	</div>
+	<v-container>
+		<v-row justify="center">
+			<v-col cols="12" md="8">
+				<h1 class="title">Choose a Fun Fact!</h1>
+				<v-row justify="space-between">
+					<v-btn color="#f7b733" class="fact-button" @click="selectFact('date')" :class="{ selected: selectedFact === 'date' }">Date</v-btn>
+					<v-btn color="#f7b733" class="fact-button" @click="selectFact('math')" :class="{ selected: selectedFact === 'math' }">Math</v-btn>
+					<v-btn color="#f7b733" class="fact-button" @click="selectFact('random')" :class="{ selected: selectedFact === 'random' }">Random</v-btn>
+					<v-btn color="#f7b733" class="fact-button" @click="selectFact('trivia')" :class="{ selected: selectedFact === 'trivia' }">Trivia</v-btn>
+					<v-btn color="#f7b733" class="fact-button" @click="selectFact('year')" :class="{ selected: selectedFact === 'year' }">Year</v-btn>
+				</v-row>
+			</v-col>
+		</v-row>
+		<v-row justify="center" class="bottom-content pt-4">
+			<v-col cols="12" md="8">
+				<v-row justify="center" v-if="selectedFact && selectedFact !== 'random'">
+					<v-text-field v-model="inputValue" v-if="selectedFact === 'date'" type="text" placeholder="DD/MM"></v-text-field>
+					<v-text-field v-model="inputValue" v-else type="number" placeholder="Enter a number"></v-text-field>
+				</v-row>
+				<v-row justify="center" class="fetch-button-container">
+					<v-btn color="#fc4a1a" @click="fetchFact" v-if="selectedFact">Get Fact!</v-btn>
+				</v-row>
+				<v-row justify="center">
+					<div class="response" v-if="response">{{ response.text }}</div>
+				</v-row>
+				<v-row justify="center">
+					<v-alert dense v-show="showError" type="error" transition="scale-transition">
+						Invalid date format. Please enter a valid date format (DD/MM).
+					</v-alert>
+				</v-row>
+			</v-col>
+		</v-row>
+	</v-container>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
 	data() {
 		return {
@@ -36,7 +46,7 @@ export default {
 			inputValue: '',
 			response: {},
 			showError: false,
-		}
+		};
 	},
 	methods: {
 		selectFact(fact) {
@@ -48,7 +58,6 @@ export default {
 			}
 		},
 		isValidDate(dateString) {
-			// Check if date is in the format DD/MM
 			const dateRegex = /^\d{2}\/\d{2}$/;
 			return dateRegex.test(dateString);
 		},
@@ -104,12 +113,11 @@ export default {
 	},
 	computed: {
 		showInputField() {
-			if (this.selectedFact !== '') {
-				return this.selectedFact !== 'random';
-			}
-			return false;
-		},
+		if (this.selectedFact !== '') {
+			return this.selectedFact !== 'random';
+		}
+		return false;
+		}
 	}
-}
-
+};
 </script>

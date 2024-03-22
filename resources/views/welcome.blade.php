@@ -6,10 +6,13 @@
         <title>Laravel</title>
 		@vite('resources/js/app.js')
 		<link rel="stylesheet" href="/resources/css/app.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetify@3.0.0-alpha.10/dist/vuetify.min.css">
     </head>
     <body>
 		<div id='app'>
 			<facts />
 		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue@next/dist/vue.global.prod.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@vuetifyjs/vuetify@3.0.0-alpha.10"></script>
     </body>
 </html>
