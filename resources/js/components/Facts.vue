@@ -2,20 +2,30 @@
 	<v-container class="pt-12">
 		<v-row justify="center">
 			<v-col cols="12" md="8">
+				<!-- Login and Register Buttons -->
+				<v-row justify="end" class="pb-4">
+					<v-btn class="fact-button mr-3" to="/LoginRegister">Login</v-btn>
+					<v-btn class="fact-button" to="/LoginRegister">Register</v-btn>
+				</v-row>
 				<h1 class="title pb-8">Generate a Fun Fact!</h1>
-				<v-row justify="space-between">
-					<v-btn class="fact-button" @click="selectFact('date')" :class="{ selected: selectedFact === 'date' }">Date</v-btn>
-					<v-btn class="fact-button" @click="selectFact('math')" :class="{ selected: selectedFact === 'math' }">Math</v-btn>
-					<v-btn class="fact-button" @click="selectFact('random')" :class="{ selected: selectedFact === 'random' }">Random</v-btn>
-					<v-btn class="fact-button" @click="selectFact('trivia')" :class="{ selected: selectedFact === 'trivia' }">Trivia</v-btn>
-					<v-btn class="fact-button" @click="selectFact('year')" :class="{ selected: selectedFact === 'year' }">Year</v-btn>
+
+				<v-row justify="center" style="width: 80%; margin: 0 auto;">
+					<v-col cols="12" md="8">
+						<v-row justify="center">
+							<v-btn class="fact-button mr-3" @click="selectFact('date')" :class="{ selected: selectedFact === 'date' }">Date</v-btn>
+							<v-btn class="fact-button mr-3" @click="selectFact('math')" :class="{ selected: selectedFact === 'math' }">Math</v-btn>
+							<v-btn class="fact-button mr-3" @click="selectFact('random')" :class="{ selected: selectedFact === 'random' }">Random</v-btn>
+							<v-btn class="fact-button mr-3" @click="selectFact('trivia')" :class="{ selected: selectedFact === 'trivia' }">Trivia</v-btn>
+							<v-btn class="fact-button" @click="selectFact('year')" :class="{ selected: selectedFact === 'year' }">Year</v-btn>
+						</v-row>
+					</v-col>
 				</v-row>
 			</v-col>
 		</v-row>
-		<v-row justify="center" class="bottom-content pt-4">
+		<v-row justify="center" class="bottom-content pt-4" style="width: 80%; margin: 0 auto;">
 			<v-col cols="12" md="8">
 
-				<v-row justify="center" v-if="selectedFact && selectedFact !== 'random'">
+				<v-row justify="center" v-if="selectedFact && selectedFact !== 'random'" style="width: 60%; margin: 0 auto;">
 					<v-text-field v-model="inputValue" v-if="selectedFact === 'date'" type="text" placeholder="DD/MM"></v-text-field>
 					<v-text-field v-model="inputValue" v-else type="number" placeholder="Enter a number"></v-text-field>
 				</v-row>
@@ -24,7 +34,7 @@
 					<v-btn class="action-button" @click="fetchFact" v-if="selectedFact">Get Fact!</v-btn>
 				</v-row>
 
-				<v-row justify="center">
+				<v-row justify="center" style="width: 60%; margin: 0 auto;">
 					<v-col cols="12" md="12">
 						<div class="response-container">
 							<div class="response" v-if="Object.keys(response).length > 0 && selectedFact === 'random'">{{ response.number }}</div>
@@ -34,20 +44,20 @@
 					</v-col>
 				</v-row>
 
-				<v-row justify="center" v-if="Object.keys(response).length > 0">
+				<v-row justify="center" v-if="Object.keys(response).length > 0" style="width: 60%; margin: 0 auto;">
 					<v-col cols="12" md="8">
 						<v-text-field v-model="guess" type="text" placeholder="Enter your guess"></v-text-field>
 						<v-btn class="action-button" @click="submitGuess">Submit</v-btn>
 					</v-col>
 				</v-row>
 
-				<v-row justify="center" class="show-result-container">
+				<v-row justify="center" class="show-result-container" style="width: 60%; margin: 0 auto;">
 					<v-alert dense v-show="showResult" :type="result === 'correct' ? 'success' : 'error'" transition="scale-transition">
 						{{ result === 'correct' ? 'Correct!' : 'Incorrect. Please try again.' }}
 					</v-alert>
 				</v-row>
 
-				<v-row justify="center">
+				<v-row justify="center" style="width: 60%; margin: 0 auto;">
 					<v-alert dense v-show="showError" type="error" transition="scale-transition">
 						Invalid date format. Please enter a valid date format (DD/MM).
 					</v-alert>
