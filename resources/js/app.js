@@ -6,7 +6,8 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import Facts from './components/Facts.vue'
-import LoginRegister from './components/LoginRegister.vue'
+import Register from './components/Register.vue'
+import Login from './components/Login.vue'
 import '@mdi/font/css/materialdesignicons.css'
 
 const vuetify = createVuetify({
@@ -17,6 +18,7 @@ const vuetify = createVuetify({
 const app = createApp()
 
 app.component('Facts', Facts)
-app.component('LoginRegister', LoginRegister)
+app.component('Register', Register)
+app.component('Login', Login)
 
 app.use(vuetify).mount('#app')

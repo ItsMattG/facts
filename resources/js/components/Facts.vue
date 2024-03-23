@@ -4,8 +4,8 @@
 			<v-col cols="12" md="16">
 				<!-- Login and Register Buttons -->
 				<v-row justify="end" class="pb-4">
-					<v-btn class="fact-button mr-3" :onClick="goToLoginRegister">Login</v-btn>
-					<v-btn class="fact-button" :onClick="goToLoginRegister">Register</v-btn>
+					<v-btn class="fact-button mr-3" :onClick="goToLogin">Login</v-btn>
+					<v-btn class="fact-button" :onClick="goToRegister">Register</v-btn>
 				</v-row>
 				<h1 class="title pb-8">Generate a Fun Fact!</h1>
 
@@ -88,8 +88,11 @@ export default {
 		};
 	},
 	methods: {
-		goToLoginRegister() {
-			window.location.href = '/login-register';
+		goToRegister() {
+			window.location.href = '/register';
+		},
+		goToLogin() {
+			window.location.href = '/login';
 		},
 		selectFact(fact) {
 			this.showError = false;

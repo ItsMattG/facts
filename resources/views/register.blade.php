@@ -10,7 +10,7 @@
 	</head>
     <body>
 		<div id='app'>
-			<login-register />
+			<register />
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/vue@next/dist/vue.global.prod.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@vuetifyjs/vuetify@3.0.0-alpha.10"></script>
