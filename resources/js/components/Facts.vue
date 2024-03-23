@@ -1,15 +1,15 @@
 <template>
 	<v-container class="pt-12">
 		<v-row justify="center">
-			<v-col cols="12" md="8">
+			<v-col cols="12" md="16">
 				<!-- Login and Register Buttons -->
 				<v-row justify="end" class="pb-4">
-					<v-btn class="fact-button mr-3" to="/LoginRegister">Login</v-btn>
-					<v-btn class="fact-button" to="/LoginRegister">Register</v-btn>
+					<v-btn class="fact-button mr-3" :onClick="goToLoginRegister">Login</v-btn>
+					<v-btn class="fact-button" :onClick="goToLoginRegister">Register</v-btn>
 				</v-row>
 				<h1 class="title pb-8">Generate a Fun Fact!</h1>
 
-				<v-row justify="center" style="width: 80%; margin: 0 auto;">
+				<v-row justify="center" >
 					<v-col cols="12" md="8">
 						<v-row justify="center">
 							<v-btn class="fact-button mr-3" @click="selectFact('date')" :class="{ selected: selectedFact === 'date' }">Date</v-btn>
@@ -22,7 +22,7 @@
 				</v-row>
 			</v-col>
 		</v-row>
-		<v-row justify="center" class="bottom-content pt-4" style="width: 80%; margin: 0 auto;">
+		<v-row justify="center" class="bottom-content pt-4" >
 			<v-col cols="12" md="8">
 
 				<v-row justify="center" v-if="selectedFact && selectedFact !== 'random'" style="width: 60%; margin: 0 auto;">
@@ -88,6 +88,9 @@ export default {
 		};
 	},
 	methods: {
+		goToLoginRegister() {
+			window.location.href = '/login-register';
+		},
 		selectFact(fact) {
 			this.showError = false;
 			if (this.selectedFact !== fact) {
