@@ -4,47 +4,37 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
-require_once __DIR__ . '/../../../../api/database_connection.php';
 
 class UserController extends Controller
 {
     public function register(Request $request)
     {
-        // Validate request data (if necessary)
+        // Validate request data
         $validatedData = $request->validate([
             'username' => 'required|string',
-            'email' => 'required|string|email',
+            'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:6',
         ]);
 
-		// Hash the password
-		$hashedPassword = Hash::make($validatedData['password']);
+        // Hash the password
+        $hashedPassword = Hash::make($validatedData['password']);
 
-        // Establish connection to Supabase database
-        $conn = connectToSupabase();
+        try {
+            // Insert user data into users table
+            DB::table('users')->insert([
+                'username' => $validatedData['username'],
+                'email' => $validatedData['email'],
+                'password' => $hashedPassword,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
 
-        if (!$conn) {
-            return response()->json(['error' => 'Failed to connect to database'], 500);
-        }
-
-        // Insert user data into users table
-        $query = "INSERT INTO users (username, email, password) VALUES ($1, $2, $3)";
-        $result = pg_query_params($conn, $query, [
-            $validatedData['username'],
-            $validatedData['email'],
-			$hashedPassword,
-        ]);
-
-        // Check if the query was successful
-        if ($result) {
-            // User registration successful
-            pg_close($conn); // Close the database connection
+            // Return a success response
             return response()->json(['message' => 'User registered successfully']);
-        } else {
-            // User registration failed
-            pg_close($conn); // Close the database connection
+        } catch (\Exception $e) {
+            // Return error response if registration fails
             return response()->json(['error' => 'User registration failed'], 500);
         }
     }

@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-require_once __DIR__ . '/../../../../api/database_connection.php';
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -13,24 +14,20 @@ class LoginController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
 
-		// Establish connection to Supabase database
-		$conn = connectToSupabase();
+        try {
+            // Retrieve user from the database based on the email
+            $user = DB::table('users')->where('email', $email)->first();
 
-        // Prepare and execute query to authenticate user
-        $query = "SELECT * FROM users WHERE email = $1 LIMIT 1";
-        $result = pg_query_params($conn, $query, [$email]);
+            // Check if user exists and verify password
+            if (!$user || !Hash::check($password, $user->password)) {
+                return response()->json(['error' => 'Invalid email or password'], 401);
+            }
 
-        if (!$result) {
-            die("Error executing query");
+            // Authentication successful, return user data
+            return response()->json(['user' => $user]);
+        } catch (\Exception $e) {
+            // Return error response if an exception occurs
+            return response()->json(['error' => 'Login failed'], 500);
         }
-
-        $user = pg_fetch_assoc($result);
-
-        if (!$user || !password_verify($password, $user['password'])) {
-            return response()->json(['error' => 'Invalid email or password'], 401);
-        }
-
-        // Authentication successful, return user data or JWT token
-        return response()->json(['user' => $user]);
     }
 }
