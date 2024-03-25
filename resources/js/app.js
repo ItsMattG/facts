@@ -26,9 +26,6 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         const app = createApp({ render: () => h(App, props) });
         app.use(plugin);
-        app.component('Facts', Facts);
-        app.component('Register', Register);
-        app.component('Login', Login);
         app.use(vuetify);
         return app.mount(el);
     },
