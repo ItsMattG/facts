@@ -9,6 +9,13 @@ export default defineConfig({
 			output: 'public/build', // Ensure this points to the correct output directory
 			refresh: true,
 		}),
-		vue(),
+		vue({
+			template: {
+				transformAssetUrls: {
+					base: null,
+					includeAbsolute: false,
+				},
+			},
+		}),
     ],
 });

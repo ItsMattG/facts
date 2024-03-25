@@ -1,5 +1,6 @@
-import { createApp } from 'vue/dist/vue.esm-bundler.js';
-
+import { createApp, h } from 'vue/dist/vue.esm-bundler.js';
+import { createInertiaApp } from "@inertiajs/inertia-vue3";
+import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 // Vuetify
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -15,10 +16,20 @@ const vuetify = createVuetify({
 	directives,
 })
 
-const app = createApp()
-
-app.component('Facts', Facts)
-app.component('Register', Register)
-app.component('Login', Login)
-
-app.use(vuetify).mount('#app')
+createInertiaApp({
+	id: 'my-app',
+    resolve: (name) =>
+		resolvePageComponent(
+			`./components/${name}.vue`,
+			import.meta.glob("./components/**/*.vue")
+		),
+    setup({ el, App, props, plugin }) {
+        const app = createApp({ render: () => h(App, props) });
+        app.use(plugin);
+        app.component('Facts', Facts);
+        app.component('Register', Register);
+        app.component('Login', Login);
+        app.use(vuetify);
+        return app.mount(el);
+    },
+});

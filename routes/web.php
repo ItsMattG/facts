@@ -1,19 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', function () {
-    return view('welcome');
+	return Inertia::render('Facts');
 });
 
 Route::get('/register', function () {
-    return view('register');
+    return Inertia::render('Register');
 });
 
 Route::get('/login', function () {
-    return view('login');
-});
-
-Route::get('/dbconn', function () {
-    return view('dbconn');
+	return Inertia::render('Login');
 });

@@ -72,6 +72,7 @@
 import axios from 'axios'
 
 export default {
+	name: 'Facts',
 	data() {
 		return {
 			baseUrl: 'https://numbersapi.p.rapidapi.com/',
