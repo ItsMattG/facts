@@ -110,23 +110,18 @@ export default {
 			return dateRegex.test(dateString);
 		},
 		generateBlank(text) {
-			console.log(text);
 			// Split the text into an array of words and numbers
 			let wordsAndNumbers = text.split(/\b/);
-			console.log('first wordsAndNumbers', wordsAndNumbers)
+
 			// Filter out empty strings and punctuation marks
 			wordsAndNumbers = wordsAndNumbers.filter(item => /[a-zA-Z0-9]/.test(item));
-			console.log('second wordsAndNumbers', wordsAndNumbers)
 
 			// Randomly select one index to remove
 			const indexToRemove = Math.floor(Math.random() * wordsAndNumbers.length);
-			console.log('indexToRemove', indexToRemove)
 
 			// Store the correct answer and its index before replacing it with a blank
 			this.correctAnswer = wordsAndNumbers[indexToRemove];
-			console.log('correctAnswer', this.correctAnswer)
 			this.correctAnswerIndex = indexToRemove;
-			console.log('this.correctAnswerIndex', this.correctAnswerIndex)
 
 			// Replace the selected word or number with a blank
 			wordsAndNumbers[indexToRemove] = '___';
@@ -136,8 +131,6 @@ export default {
 		},
 		submitGuess() {
 			// Check if the guess matches the correct answer
-			console.log('correct', this.correctAnswer);
-
 			if (this.guess.trim().toLowerCase() === this.correctAnswer.trim().toLowerCase()) {
 				this.result = 'correct';
 			} else {
@@ -150,7 +143,6 @@ export default {
 			this.guess = '';
 			this.response = {};
 			if (!this.selectedFact) {
-				console.error('No fact selected');
 				return;
 			}
 
@@ -170,14 +162,12 @@ export default {
 					this.apiSearch = 'random/trivia';
 					break;
 				case 'trivia':
-					console.log('asdad', this.inputValue)
 					this.apiSearch = `${this.inputValue + '/trivia'}`;
 					break;
 				case 'year':
 					this.apiSearch = `${this.inputValue + '/year'}`;
 					break;
 			}
-			console.log(this.baseUrl + this.apiSearch)
 			var options = {
 				method: 'GET',
 				url: this.baseUrl + this.apiSearch,
@@ -195,7 +185,6 @@ export default {
 				var res = await axios.request(options);
 				this.response = res.data;
 				this.blankText = this.generateBlank(this.response.text);
-				console.log(this.response.text);
 			} catch (error) {
 				console.error('Error fetching data:', error);
 			}
